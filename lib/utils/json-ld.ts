@@ -8,8 +8,8 @@ export function organizationJsonLd() {
     url: SITE_URL,
     logo: `${SITE_URL}/logo.png`,
     sameAs: [
-      "https://www.instagram.com/norenapparel",
-      "https://www.tiktok.com/@norenapparel",
+      "https://www.instagram.com/colorandscent",
+      "https://www.tiktok.com/@colorandscent",
     ],
     contactPoint: {
       "@type": "ContactPoint",

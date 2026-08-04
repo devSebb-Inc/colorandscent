@@ -27,13 +27,13 @@
   --radius: 0.75rem;
   
   /* COLOR & SCENT Custom Colors */
-  --noren-red: #cc4444;
-  --noren-gold: #f0b429;
-  --noren-jade: #4ade80;
-  --noren-cream: #f0ebe3;
-  --noren-muted: #a09a90;
-  --noren-dark: #0f0f0f;
-  --noren-card: #1a1a1a;
+  --cs-amber: #cc4444;
+  --cs-gold: #f0b429;
+  --cs-jade: #4ade80;
+  --cs-cream: #f0ebe3;
+  --cs-muted: #a09a90;
+  --cs-dark: #0f0f0f;
+  --cs-card: #1a1a1a;
 }
 
 @theme inline {

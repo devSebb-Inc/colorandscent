@@ -10,12 +10,12 @@ export default function NotFound() {
   return (
     <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-4">
       <div className="text-center space-y-6 max-w-md">
-        <div className="text-8xl">🍜</div>
+        <div className="text-8xl">🕯️</div>
         <div>
           <h1 className="text-6xl font-extrabold tracking-tight text-primary mb-2">404</h1>
-          <h2 className="text-2xl font-bold tracking-tight mb-3">Lost in Translation</h2>
+          <h2 className="text-2xl font-bold tracking-tight mb-3">Lost in the Scent</h2>
           <p className="text-muted-foreground leading-relaxed">
-            This page wandered off like a noren curtain in the wind. The design you&apos;re
+            This page seems to have drifted away like smoke. The page you&apos;re
             looking for might have moved or doesn&apos;t exist.
           </p>
         </div>

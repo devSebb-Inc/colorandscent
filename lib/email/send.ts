@@ -128,7 +128,7 @@ export async function sendShippingNotificationEmail(opts: ShippingNotificationOp
           <p style="font-weight: 600; font-family: monospace; margin: 0;">${opts.trackingNumber}</p>
         </div>
 
-        <a href="${opts.trackingUrl}" style="display: inline-block; padding: 14px 28px; background: #cc4444; color: #f0ebe3; text-decoration: none; font-weight: 700; border-radius: 10px;">
+        <a href="${opts.trackingUrl}" style="display: inline-block; padding: 14px 28px; background: #b8860b; color: #f0ebe3; text-decoration: none; font-weight: 700; border-radius: 10px;">
           Track Your Package →
         </a>
 
@@ -172,7 +172,7 @@ export async function sendWelcomeEmail(opts: WelcomeEmailOptions) {
         </div>
         ` : ""}
 
-        <a href="${process.env.NEXT_PUBLIC_APP_URL ?? "https://norenstore.com"}/products" style="display: inline-block; padding: 16px 32px; background: #cc4444; color: #f0ebe3; text-decoration: none; font-weight: 700; border-radius: 10px; font-size: 16px;">
+        <a href="${process.env.NEXT_PUBLIC_APP_URL ?? "https://colorandscent.com"}/products" style="display: inline-block; padding: 16px 32px; background: #b8860b; color: #f0ebe3; text-decoration: none; font-weight: 700; border-radius: 10px; font-size: 16px;">
           SHOP THE COLLECTION →
         </a>
 
@@ -200,7 +200,7 @@ interface AbandonedCartEmailOptions {
 }
 
 export async function sendAbandonedCartEmail(opts: AbandonedCartEmailOptions) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://norenstore.com"
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://colorandscent.com"
   const itemsHtml = opts.cartItems
     .map(
       (item) =>
@@ -232,7 +232,7 @@ export async function sendAbandonedCartEmail(opts: AbandonedCartEmailOptions) {
           Cart total: $${opts.total.toFixed(2)}
         </p>
 
-        <a href="${baseUrl}/cart?session=${opts.cartSessionId}" style="display: inline-block; padding: 16px 32px; background: #cc4444; color: #f0ebe3; text-decoration: none; font-weight: 700; border-radius: 10px; font-size: 16px;">
+        <a href="${baseUrl}/cart?session=${opts.cartSessionId}" style="display: inline-block; padding: 16px 32px; background: #b8860b; color: #f0ebe3; text-decoration: none; font-weight: 700; border-radius: 10px; font-size: 16px;">
           COMPLETE MY ORDER →
         </a>
 

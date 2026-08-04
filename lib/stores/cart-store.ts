@@ -75,7 +75,7 @@ export const useCartStore = create<CartStore>()(
       toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
     }),
     {
-      name: "noren-cart",
+      name: "colorandscent-cart",
       storage: createJSONStorage(() => localStorage),
       version: 2,
       migrate: (persisted, version) => {
