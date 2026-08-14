@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl
   const title = searchParams.get("title") ?? "COLOR & SCENT"
   const subtitle = searchParams.get("subtitle") ?? "Premium Candles & Home Fragrance"
-  const emoji = searchParams.get("emoji") ?? "🍜"
+  const emoji = searchParams.get("emoji") ?? "🕯️"
 
   return new ImageResponse(
     (
@@ -19,12 +19,12 @@ export async function GET(req: NextRequest) {
           justifyContent: "center",
           width: "100%",
           height: "100%",
-          background: "#0f0f0f",
+          background: "#FFF8F0",
           fontFamily: "sans-serif",
           padding: "60px",
         }}
       >
-        {/* Red accent line */}
+        {/* Gold accent line */}
         <div
           style={{
             position: "absolute",
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
             left: 0,
             right: 0,
             height: "6px",
-            background: "#c8102e",
+            background: "#C5A55A",
           }}
         />
 
@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
           style={{
             fontSize: 56,
             fontWeight: 900,
-            color: "#ffffff",
+            color: "#1A1A1A",
             textAlign: "center",
             lineHeight: 1.1,
             marginBottom: 16,
@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
         <div
           style={{
             fontSize: 28,
-            color: "#888888",
+            color: "#8A8178",
             textAlign: "center",
             marginBottom: 48,
           }}
@@ -79,14 +79,14 @@ export async function GET(req: NextRequest) {
             style={{
               fontSize: 18,
               fontWeight: 900,
-              color: "#c8102e",
+              color: "#0D2F32",
               letterSpacing: "0.15em",
             }}
           >
             COLOR & SCENT
           </div>
-          <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#555" }} />
-          <div style={{ fontSize: 18, color: "#555" }}>colorandscent.com</div>
+          <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#C5A55A" }} />
+          <div style={{ fontSize: 18, color: "#8A8178" }}>colorandscent.com</div>
         </div>
       </div>
     ),

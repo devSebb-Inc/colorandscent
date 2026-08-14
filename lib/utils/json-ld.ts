@@ -67,17 +67,8 @@ export function productJsonLd(opts: {
       "@type": "Brand",
       name: "COLOR & SCENT",
     },
-    ...(opts.withAggregateRating !== false
-      ? {
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: "4.9",
-            reviewCount: "2400",
-            bestRating: "5",
-            worstRating: "1",
-          },
-        }
-      : {}),
+    // Aggregate ratings are intentionally omitted until real review data is available.
+    ...(opts.withAggregateRating ? {} : {}),
     offers: {
       "@type": "AggregateOffer",
       url: `${SITE_URL}/products/${opts.slug}`,

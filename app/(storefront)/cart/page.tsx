@@ -77,7 +77,7 @@ export default function CartPage() {
       <div className="py-20 px-4 flex flex-col items-center justify-center text-center min-h-[50vh]">
         <ShoppingBag className="w-20 h-20 text-muted-foreground mb-6" />
         <h1 className="text-3xl font-extrabold mb-4">Your cart is empty</h1>
-        <p className="text-muted-foreground mb-8">Time to fill your bowl with some culture.</p>
+        <p className="text-muted-foreground mb-8">Time to find your signature scent.</p>
         <Link
           href="/products"
           className="px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl transition-colors flex items-center gap-2"
@@ -172,7 +172,7 @@ export default function CartPage() {
                     type="text"
                     value={discountCode}
                     onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
-                    placeholder="SLURP25"
+                    placeholder="SCENT15"
                     disabled={!!appliedCode}
                     className="flex-1 px-3 py-2 bg-background border border-border rounded-lg text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary disabled:opacity-50"
                   />

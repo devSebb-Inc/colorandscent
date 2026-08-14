@@ -8,9 +8,9 @@ let _db: DrizzleDB | null = null
 
 function getDb(): DrizzleDB {
   if (!_db) {
-    const url = process.env.SUPABASE_DB_URL
+    const url = process.env.DATABASE_URL
     if (!url) {
-      throw new Error("Missing SUPABASE_DB_URL environment variable")
+      throw new Error("Missing DATABASE_URL environment variable")
     }
     const client = postgres(url, { prepare: false })
     _db = drizzle(client, { schema })

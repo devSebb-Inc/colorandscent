@@ -1,8 +1,1 @@
-# Color & Scent — Memory
-
-## Key Facts
-- Bootstrapped from noren-ecom codebase on 2026-08-03
-- Domain: colorandscent.com
-- Product focus: premium candles & home fragrance
-- Same tech stack as Noren: Next.js + Supabase + Printify + Stripe
-- Env var prefix: COLORANDSCENT_
+# Color & Scent — Memory\n\n## Durable Facts\n- Bootstrapped from `noren-ecom` on 2026-08-03\n- Domain: `colorandscent.com`\n- Product focus: premium candles & home fragrance\n- Stack mirrors Noren: Next.js + Supabase + Printify + Stripe\n- Storefront pages render\n- Product detail pages stopped 404ing on 2026-08-05 after static fallback product data was added\n\n## Current Blockers\n- Real Supabase DB password\n- Stripe keys\n- Product image completion\n- Admin credentials\n- Deployment\n

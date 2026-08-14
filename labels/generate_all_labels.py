@@ -100,22 +100,22 @@ def draw_design(output_path, w, h, candle_name, scent_notes, font_size=78):
 
 if __name__ == '__main__':
     import os
-    out_dir = '/Users/jessica/.openclaw/workspace/projects/colorandscent/labels/samples'
+    out_dir = '/Users/jessica/.openclaw/workspace/projects/colorandscent/labels'
     os.makedirs(out_dir, exist_ok=True)
 
-    # All 8 products with their exact Printify dimensions
+    # 8 candle products with 2400x900 label dimensions
     products = [
-        ("01-amber-glow", "AMBER GLOW", "WARM AMBER · SANDALWOOD · VANILLA", 900, 600, 78),
-        ("02-after-hours", "AFTER HOURS", "LEATHER · LABDANUM · CEDARWOOD", 900, 600, 78),
-        ("03-midnight-bloom", "MIDNIGHT BLOOM", "BLACK ROSE · OUD · PATCHOULI", 913, 613, 78),
-        ("04-golden-hour", "GOLDEN HOUR", "HONEY · TONKA · AMBER", 900, 600, 78),
-        ("05-calm-collected", "CALM & COLLECTED", "LAVENDER · CHAMOMILE · BERGAMOT", 900, 1125, 90),
-        ("06-soft-life", "SOFT LIFE", "VANILLA · COCONUT · SANDALWOOD", 1050, 748, 90),
-        ("07-fresh-start", "FRESH START", "SEA BREEZE · SALT · DRIFTWOOD", 1425, 375, 60),
-        ("08-essentials", "ESSENTIALS COLLECTION", "MIXED SCENTS · 4 PIECE SET", 600, 420, 55),
+        ("label-good-vibes-only", "Good Vibes Only", "CITRUS · SAGE · SUNSHINE", 2400, 900, 78),
+        ("label-home-is-where-the-candle-is", "Home Is Where The Candle Is", "CEDAR · VANILLA · WARMTH", 2400, 900, 78),
+        ("label-light-it-up", "Light It Up", "EUCALYPTUS · MINT · FRESH", 2400, 900, 78),
+        ("label-melt-your-worries-away", "Melt Your Worries Away", "LAVENDER · CHAMOMILE · CALM", 2400, 900, 78),
+        ("label-set-the-mood", "Set The Mood", "ROSE · PATCHOULI · ROMANCE", 2400, 900, 78),
+        ("label-you-are-my-favorite", "You Are My Favorite", "VANILLA BEAN · AMBER · COZY", 2400, 900, 78),
+        ("label-after-hours", "After Hours", "LEATHER · LABDANUM · MYSTERY", 2400, 900, 78),
+        ("label-soft-life", "Soft Life", "CASHMERE MUSK · COMFORT", 2400, 900, 78),
     ]
 
     for filename, name, scent, w, h, font_size in products:
         draw_design(f'{out_dir}/{filename}.png', w, h, name, scent, font_size)
 
-    print("\nAll 8 designs generated!")
+    print("\nAll 8 candle labels generated!")

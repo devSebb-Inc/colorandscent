@@ -8,7 +8,6 @@ import { useCart } from "@/lib/hooks/use-cart"
 import { formatCents } from "@/lib/utils/format"
 import { pixelAddToCart } from "@/lib/utils/fbpixel"
 import { ColorSelector } from "./ColorSelector"
-import { SizeSelector, type PDPSize } from "./SizeSelector"
 import { FreeShippingProgress } from "./FreeShippingProgress"
 import { TrustBadges } from "./TrustBadges"
 import type { ProductWithDetails } from "@/lib/types/product"
@@ -28,13 +27,13 @@ export function AddToCartCTA({
   selectedColorHex,
   onColorChange,
 }: Props) {
-  const [selectedSize, setSelectedSize] = useState<PDPSize | null>(null)
+  const selectedSize = "One Size"
   const [added, setAdded] = useState(false)
   const { addItem, openCart } = useCart()
   const price = product.priceCents / 100
 
   const handleAdd = () => {
-    const size = selectedSize ?? "M"
+    const size = selectedSize
 
     addItem({
       id: product.id,
@@ -44,7 +43,7 @@ export function AddToCartCTA({
       size,
       color: selectedColor,
       colorHex: selectedColorHex,
-      emoji: product.emoji ?? "👕",
+      emoji: product.emoji ?? "🕯️",
       image: imageUrl,
     })
 
@@ -55,7 +54,7 @@ export function AddToCartCTA({
     })
 
     toast.success(`${product.title} (${size}) added!`, {
-      icon: product.emoji ?? "👕",
+      icon: product.emoji ?? "🕯️",
     })
 
     // Brief success state
@@ -72,7 +71,15 @@ export function AddToCartCTA({
         selectedColor={selectedColor}
         onColorChange={onColorChange}
       />
-      <SizeSelector selectedSize={selectedSize} onSizeChange={setSelectedSize} />
+      <div className="mb-5 rounded-2xl border border-border bg-[#FFF8EF]/70 p-4">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm font-semibold">Candle size</p>
+            <p className="mt-1 text-xs text-muted-foreground">One ready-to-burn candle; scent and color shown above.</p>
+          </div>
+          <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-muted-foreground">One Size</span>
+        </div>
+      </div>
       <FreeShippingProgress />
 
       {/* Add to cart button with success state */}

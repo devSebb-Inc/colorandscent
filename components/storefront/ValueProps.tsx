@@ -2,32 +2,32 @@
 
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import { Shirt, Sparkles, Package, RotateCcw } from "lucide-react"
+import { Leaf, Sparkles, Heart, Package } from "lucide-react"
 
 const props = [
   {
     num: "01",
-    icon: Shirt,
-    title: "Heavyweight Cotton",
-    description: "100% ring-spun, garment-dyed 6.5oz Comfort Colors 1717. The gold standard of blank tees — built to last, soft from day one.",
+    icon: Leaf,
+    title: "100% Soy Wax",
+    description: "Premium natural soy wax for a clean, even burn. No paraffin, no toxins, no shortcuts. Just pure, eco-friendly goodness that lasts longer and burns cleaner.",
   },
   {
     num: "02",
     icon: Sparkles,
-    title: "Hand-Illustrated Art",
-    description: "Every design starts as a hand-drawn illustration. No AI slop. No stock vectors. Original art, full stop.",
+    title: "Hand-Poured Scents",
+    description: "Every candle is hand-poured in small batches. Our fragrance oils are phthalate-free and meticulously blended for the perfect hot and cold throw.",
   },
   {
     num: "03",
-    icon: Package,
-    title: "Fast Shipping",
-    description: "Ships in 2–4 business days. Standard delivery 5–7 days US. Free on orders over $75.",
+    icon: Heart,
+    title: "Vegan & Cruelty-Free",
+    description: "Never tested on animals. 100% vegan ingredients. Our cotton wicks are lead-free and our wax is sustainably sourced. Good for you, good for the planet.",
   },
   {
     num: "04",
-    icon: RotateCcw,
-    title: "Easy Returns",
-    description: "30-day hassle-free returns. Exchange or full refund. No questions asked, no hoops to jump through.",
+    icon: Package,
+    title: "Eco-Friendly Packaging",
+    description: "Recyclable glass jars, compostable labels, and plastic-free shipping. We believe a premium experience shouldn't cost the earth.",
   },
 ]
 
@@ -48,7 +48,7 @@ function PropRow({
     <div ref={ref} className={`relative ${!isLast ? "border-b border-border/30" : ""}`}>
       {/* Wipe reveal overlay */}
       <motion.div
-        className="absolute inset-0 bg-[#0c0c0c] origin-left pointer-events-none z-10"
+        className="absolute inset-0 bg-background origin-left pointer-events-none z-10"
         initial={{ scaleX: 1 }}
         animate={inView ? { scaleX: 0 } : { scaleX: 1 }}
         transition={{ duration: 0.75, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
@@ -58,7 +58,7 @@ function PropRow({
         {/* Big number */}
         <div className="md:w-32 shrink-0">
           <span
-            className="font-display font-extrabold text-border/40 leading-none select-none"
+            className="font-serif font-extrabold text-border/40 leading-none select-none"
             style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)" }}
           >
             {item.num}
@@ -75,7 +75,7 @@ function PropRow({
         {/* Title */}
         <div className="md:w-64 shrink-0 md:pr-8">
           <h3
-            className="font-display font-extrabold leading-tight"
+            className="font-serif font-extrabold leading-tight"
             style={{ fontSize: "clamp(1.1rem, 2vw, 1.35rem)" }}
           >
             {item.title}
@@ -96,11 +96,11 @@ export function ValueProps() {
   const headerInView = useInView(headerRef, { once: true, margin: "-60px" })
 
   return (
-    <section className="py-24 px-4 bg-[#0c0c0c] relative overflow-hidden">
-      {/* Faint red radial glow at bottom */}
+    <section className="py-24 px-4 bg-card relative overflow-hidden">
+      {/* Faint gold radial glow */}
       <div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at center, rgba(204,68,68,0.06) 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(ellipse at center, rgba(197,165,90,0.06) 0%, transparent 70%)" }}
       />
 
       <div className="max-w-[1400px] mx-auto relative">
@@ -116,7 +116,7 @@ export function ValueProps() {
               03 — Why COLOR & SCENT
             </motion.p>
             <motion.h2
-              className="font-display font-extrabold tracking-tight leading-none"
+              className="font-serif font-extrabold tracking-tight leading-none"
               style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
               initial={{ opacity: 0, y: 30 }}
               animate={headerInView ? { opacity: 1, y: 0 } : {}}

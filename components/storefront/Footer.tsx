@@ -61,10 +61,10 @@ export function Footer() {
 
   return (
     <footer
-      className="relative overflow-hidden"
+      className="relative overflow-hidden bg-[#F6F0E7] text-[#171412]"
       style={{
-        borderTop: "1px solid #b8860b",
-        boxShadow: "0 -1px 0 #b8860b, 0 -4px 60px rgba(184,134,11,0.07)",
+        borderTop: "1px solid #D8CABB",
+        boxShadow: "0 -4px 60px rgba(23,20,18,0.04)",
       }}
     >
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 pt-20 pb-10">
@@ -89,7 +89,7 @@ export function Footer() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              Hand-poured candles and curated home fragrance that transforms your space.
+              Elegant candles and home fragrance organized by scent notes, occasion, and room feel.
             </motion.p>
 
             <motion.div
@@ -171,7 +171,7 @@ export function Footer() {
             © 2026 COLOR & SCENT. All rights reserved.
           </p>
           <p className="text-[11px] font-mono text-muted-foreground/50 tracking-wider">
-            Hand-poured with love in the USA
+            Scent notes, room moods, and candle care included
           </p>
         </div>
       </div>

@@ -7,32 +7,32 @@ import {
 
 const faqs = [
   {
-    q: "What material are COLOR & SCENT tees made of?",
-    a: "Every COLOR & SCENT tee is printed on a Comfort Colors 1717 blank — 100% ring-spun cotton, garment-dyed, 6.5oz heavyweight. It's the softest, most durable blank we could find, and the standard by which we judge every other tee.",
+    q: "What kind of wax do you use?",
+    a: "Every COLOR & SCENT candle is made with 100% natural soy wax. Soy wax burns cleaner and longer than paraffin, is biodegradable, and supports sustainable farming. No paraffin, no petroleum, no compromises.",
   },
   {
-    q: "How do they fit?",
-    a: "Relaxed and boxy with a slightly oversized feel. Most customers order their normal size. Check the size guide above for exact measurements. The garment-dyed cotton holds its shape without being stiff.",
+    q: "How long do the candles burn?",
+    a: "Our 8oz candles burn for approximately 45-55 hours. The 12oz size burns for 65-80 hours. To maximize burn time, always let the wax melt to the edges of the jar on the first burn (about 2-3 hours), and trim the wick to 1/4 inch before each lighting.",
   },
   {
-    q: "How should I wash my tee?",
-    a: "Turn inside out, cold wash, tumble dry low or hang dry. The garment-dyed fabric will actually soften even more over time — it's one of the few items of clothing that genuinely gets better with every wash. Avoid bleach and ironing directly on the print.",
+    q: "How should I care for my candle?",
+    a: "Trim the wick to 1/4 inch before each burn. Burn for 2-4 hours at a time to prevent tunneling. Keep away from drafts, children, and pets. Never leave a burning candle unattended. Stop using when 1/2 inch of wax remains.",
   },
   {
     q: "How long does shipping take?",
-    a: "Orders ship within 2–4 business days from our US fulfillment partner. Standard delivery is 5–7 business days within the US. Free shipping on all orders over $75.",
+    a: "Orders ship within 2-4 business days from our US fulfillment center. Standard delivery is 5-7 business days within the US. Free shipping on all orders over $75.",
   },
   {
     q: "What's your return policy?",
-    a: "We offer hassle-free 30-day returns. If you're not happy for any reason — wrong size, not what you expected, changed your mind — we'll make it right with a full exchange or refund. No questions, no drama.",
+    a: "We offer hassle-free 30-day returns. If you're not happy with your scent for any reason — wrong scent, not what you expected, changed your mind — we'll make it right with a full exchange or refund. No questions, no drama.",
   },
   {
-    q: "Are the designs really hand-drawn?",
-    a: "Yes. Every COLOR & SCENT design starts as a hand illustration. We don't use AI-generated art or stock vectors. Each piece is original work. This is slower and more expensive, but you can feel the difference — there's a warmth and intentionality to hand-drawn work that algorithms can't replicate.",
+    q: "Are your candles really vegan?",
+    a: "Yes. Every COLOR & SCENT candle is 100% vegan and cruelty-free. We use plant-based soy wax, lead-free cotton wicks, and phthalate-free fragrance oils. Never tested on animals. Ever.",
   },
   {
-    q: "Where are the shirts printed?",
-    a: "Our tees are printed on demand in the USA using direct-to-garment (DTG) technology. DTG bonds ink directly into the fabric fibers for prints that are soft to the touch, vibrant in color, and built to outlast the shirt.",
+    q: "Where are the candles made?",
+    a: "Every candle is hand-poured in small batches in the USA. We don't outsource to mass production facilities. Each batch is hand-poured, hand-labeled, and hand-inspected before it ships to you.",
   },
 ]
 
@@ -40,7 +40,7 @@ export function ProductFAQ() {
   return (
     <section className="py-16 border-t border-border">
       <div className="max-w-3xl mx-auto px-4">
-        <h2 className="text-2xl font-extrabold tracking-tight mb-8 text-center">
+        <h2 className="text-2xl font-serif font-extrabold tracking-tight mb-8 text-center">
           Frequently Asked Questions
         </h2>
         <Accordion type="single" collapsible className="space-y-2">

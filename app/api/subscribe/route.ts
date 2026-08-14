@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
 
     // Send welcome email with discount code
     try {
-      await sendWelcomeEmail({ to: email, discountCode: "SLURP25" })
+      await sendWelcomeEmail({ to: email, discountCode: "SCENT15" })
     } catch (err) {
       console.error("[Email] Failed to send welcome email:", err)
     }

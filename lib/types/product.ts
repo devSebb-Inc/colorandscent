@@ -34,6 +34,16 @@ export interface ProductWithDetails {
   seoTitle: string | null
   seoDescription: string | null
   ogImageUrl: string | null
+  scentFamily: string | null
+  scentNotes: {
+    top: string[]
+    heart: string[]
+    base: string[]
+  } | null
+  scentScene: string | null
+  roomFit: string[] | null
+  strength: string | null
+  season: string[] | null
   variants: ProductVariant[]
   images: ProductImage[]
 }

@@ -2,6 +2,18 @@ import { eq, and, ne } from "drizzle-orm"
 import { db, products, productVariants, productImages } from "@/lib/db"
 import type { ProductWithDetails } from "@/lib/types/product"
 
+function withScentNulls<T extends Omit<ProductWithDetails, "scentFamily" | "scentNotes" | "scentScene" | "roomFit" | "strength" | "season">>(product: T): ProductWithDetails {
+  return {
+    ...product,
+    scentFamily: null,
+    scentNotes: null,
+    scentScene: null,
+    roomFit: null,
+    strength: null,
+    season: null,
+  }
+}
+
 export async function getProductBySlug(slug: string): Promise<ProductWithDetails | null> {
   const result = await db.query.products.findFirst({
     where: and(eq(products.slug, slug), eq(products.isActive, true)),
@@ -15,7 +27,7 @@ export async function getProductBySlug(slug: string): Promise<ProductWithDetails
       },
     },
   })
-  return result ?? null
+  return result ? withScentNulls(result) : null
 }
 
 export async function getRelatedProducts(
@@ -40,7 +52,7 @@ export async function getRelatedProducts(
       },
     },
   })
-  return results
+  return results.map(withScentNulls)
 }
 
 export async function getAllProductSlugs(): Promise<string[]> {

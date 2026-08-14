@@ -41,13 +41,13 @@ export function StickyCartBar({
       slug: product.slug,
       name: product.title,
       price: product.priceCents / 100,
-      size: "M",
+      size: "One Size",
       color: selectedColor,
       colorHex: selectedColorHex,
-      emoji: product.emoji ?? "👕",
+      emoji: product.emoji ?? "🕯️",
       image: imageUrl,
     })
-    toast.success(`${product.title} (M) added!`, { icon: product.emoji ?? "👕" })
+    toast.success(`${product.title} added`, { icon: product.emoji ?? "🕯️" })
     openCart()
   }
 

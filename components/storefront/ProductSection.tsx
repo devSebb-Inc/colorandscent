@@ -1,329 +1,134 @@
 "use client"
 
-import { useMemo, useState, useRef } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { toast } from "sonner"
-import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion"
-import { useInView } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { useCart } from "@/lib/hooks/use-cart"
-import { SIZES, type Size } from "@/lib/data/products"
-import type { StoreProduct } from "@/lib/data/products-db"
-import { formatPrice, discountPercent } from "@/lib/utils/format"
-import { MagneticButton } from "@/components/ui/MagneticButton"
+import { products as staticProducts, scentFilters, type Product } from "@/lib/data/products"
+import { discountPercent, formatPrice } from "@/lib/utils/format"
 
-interface ProductSectionProps {
-  products: StoreProduct[]
+function matchesFilter(product: Product, filter: string) {
+  if (filter === "All") return true
+  if (filter === "Gifts") return product.scentFamily === "Gift Set" || product.category.toLowerCase().includes("gift")
+  if (filter === "Warm & Cozy") return product.scentFamily === "Amber / Gourmand"
+  if (filter === "Fresh & Clean") return product.scentFamily === "Fresh / Citrus" || product.scentFamily === "Clean / Linen"
+  if (filter === "Floral & Soft") return product.scentFamily === "Floral / Soft"
+  if (filter === "Woody & Smoky") return product.scentFamily === "Woody / Smoky"
+  return true
 }
 
-// Pre-computed kamon spokes — avoids SSR/client floating-point mismatch
-const KAMON_LINES = [0, 60, 120, 180, 240, 300].map((angle) => {
-  const rad = (angle * Math.PI) / 180
-  return {
-    x1: +(24 + 16 * Math.cos(rad)).toFixed(4),
-    y1: +(24 + 16 * Math.sin(rad)).toFixed(4),
-    x2: +(24 + 22 * Math.cos(rad)).toFixed(4),
-    y2: +(24 + 22 * Math.sin(rad)).toFixed(4),
-    angle,
-  }
-})
-
-function KamonCircle() {
-  return (
-    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="opacity-40">
-      <circle cx="24" cy="24" r="22" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="24" cy="24" r="16" stroke="currentColor" strokeWidth="0.75" />
-      {KAMON_LINES.map(({ x1, y1, x2, y2, angle }) => (
-        <line key={angle} x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth="0.75" />
-      ))}
-      <circle cx="24" cy="24" r="3" fill="currentColor" opacity="0.6" />
-    </svg>
-  )
-}
-
-// 3D tilt card wrapper
-function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const rotateX = useMotionValue(0)
-  const rotateY = useMotionValue(0)
-  const springX = useSpring(rotateX, { stiffness: 200, damping: 25 })
-  const springY = useSpring(rotateY, { stiffness: 200, damping: 25 })
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return
-    const rect = ref.current.getBoundingClientRect()
-    const cx = rect.left + rect.width / 2
-    const cy = rect.top + rect.height / 2
-    rotateY.set(((e.clientX - cx) / (rect.width / 2)) * 6)
-    rotateX.set(-((e.clientY - cy) / (rect.height / 2)) * 6)
-  }
-
-  const handleMouseLeave = () => {
-    rotateX.set(0)
-    rotateY.set(0)
-  }
+function ProductCard({ product, index, onAddToCart }: { product: Product; index: number; onAddToCart: () => void }) {
+  const noteLine = [product.topNotes[0], product.heartNotes[0], product.baseNotes[0]].filter(Boolean).join(" · ")
 
   return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX: springX, rotateY: springY, transformPerspective: 800 }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-// Individual product card
-function ProductCard({
-  product,
-  index,
-  selectedSize,
-  onSizeSelect,
-  onAddToCart,
-}: {
-  product: StoreProduct
-  index: number
-  selectedSize: Size | undefined
-  onSizeSelect: (size: Size) => void
-  onAddToCart: () => void
-}) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: "-80px" })
-  const [hovered, setHovered] = useState(false)
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 60 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <TiltCard className="h-full">
-        <Link
-          href={`/products/${product.slug}`}
-          className="group relative bg-card rounded-2xl overflow-hidden block h-full border border-border/50 hover:border-border transition-colors duration-300"
-          data-cursor="text"
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => {
-            setHovered(false)
-          }}
-        >
-          {/* Image */}
-          <div className="relative aspect-square overflow-hidden">
-            <Image
-              src={product.image}
-              alt={product.title}
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-[1.07]"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-
-            {/* Gradient overlay always visible at bottom of image */}
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-card/60 to-transparent" />
-
-            {/* Badge */}
-            <span className={`absolute top-4 left-4 ${product.badgeColor} text-xs font-bold px-3 py-1 rounded-full`}>
-              {product.badge}
-            </span>
-
-            {/* Discount */}
-            <span className="absolute top-4 right-4 bg-background/90 text-[#4ade80] text-xs font-bold px-2.5 py-1 rounded-full">
-              -{discountPercent(product.originalPrice, product.price)}%
-            </span>
-
-            {/* Color swatch */}
-            <div className="absolute bottom-3 left-3 flex items-center gap-1.5 bg-background/80 backdrop-blur-sm px-2.5 py-1 rounded-full">
-              <span className="w-2.5 h-2.5 rounded-full border border-white/30" style={{ backgroundColor: product.colorHex }} />
-              <span className="text-[10px] font-medium">{product.color}</span>
+    <motion.article initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }} transition={{ duration: 0.45, delay: index * 0.035, ease: [0.16, 1, 0.3, 1] }} layout className="h-full">
+      <div className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-black/10 bg-[#FFF8EF]/85 shadow-[0_18px_60px_rgba(23,20,18,0.055)] transition hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(23,20,18,0.11)]">
+        <Link href={`/products/${product.slug}`} className="block p-3 pb-0">
+          <div className="relative aspect-[4/4.35] overflow-hidden rounded-[1.35rem] bg-secondary">
+            <Image src={product.image} alt={product.name} fill className="object-cover transition duration-700 group-hover:scale-[1.04]" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+            <div className="absolute left-3 top-3 flex gap-2">
+              <span className="rounded-full bg-[#FFF8EF]/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-foreground backdrop-blur">{product.scentFamily}</span>
             </div>
-
-            {/* Hover overlay — size + add to cart */}
-            <AnimatePresence>
-              {hovered && (
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.22 }}
-                  className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/96 to-transparent pt-10 pb-4 px-4"
-                >
-                  {/* Sizes */}
-                  <div className="flex gap-1.5 mb-3">
-                    {SIZES.map((size) => (
-                      <button
-                        key={size}
-                        onClick={(e) => {
-                          e.preventDefault()
-                          onSizeSelect(size)
-                        }}
-                        className={`w-9 h-9 rounded-lg text-xs font-bold transition-all ${
-                          selectedSize === size
-                            ? "bg-primary text-primary-foreground shadow-[0_0_12px_rgba(204,68,68,0.4)]"
-                            : "bg-border/80 text-foreground hover:bg-secondary"
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Add to cart */}
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault()
-                      onAddToCart()
-                    }}
-                    className="w-full py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-bold rounded-xl transition-colors tracking-wider"
-                  >
-                    ADD TO CART — {formatPrice(product.price)}
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Info */}
-          <div className="p-4">
-            <p className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase mb-1 font-mono">
-              {product.subtitle}
-            </p>
-            <h3 className="text-base font-bold mb-1.5 leading-snug">{product.title}</h3>
-            <div className="flex items-center gap-2">
-              <span className="text-lg font-bold">{formatPrice(product.price)}</span>
-              <span className="text-sm text-muted-foreground line-through">{formatPrice(product.originalPrice)}</span>
+            {product.originalPrice > product.price && (
+              <span className="absolute right-3 top-3 rounded-full bg-[var(--cs-soft-clay)] px-2.5 py-1 text-[10px] font-bold text-white">-{discountPercent(product.originalPrice, product.price)}%</span>
+            )}
+            <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full bg-[#FFF8EF]/90 px-3 py-1.5 backdrop-blur">
+              <span className="h-3.5 w-3.5 rounded-full border border-black/15 shadow-inner" style={{ backgroundColor: product.colorHex }} />
+              <span className="text-[11px] font-medium">{product.color}</span>
             </div>
           </div>
         </Link>
-      </TiltCard>
-    </motion.div>
+        <div className="flex flex-1 flex-col p-5">
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{noteLine}</p>
+          <Link href={`/products/${product.slug}`} className="mt-2 inline-block">
+            <h3 className="font-serif text-3xl font-semibold leading-none tracking-tight">{product.name}</h3>
+          </Link>
+          <p className="mt-3 min-h-[3.25rem] text-sm leading-6 text-muted-foreground">{product.scentScene}</p>
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {[product.strength, ...product.roomFit.slice(0, 2)].map((tag) => (
+              <span key={tag} className="scent-chip rounded-full bg-secondary/70 px-2.5 py-1 text-[11px] text-muted-foreground">{tag}</span>
+            ))}
+          </div>
+          <div className="mt-5 flex items-center gap-2">
+            <span className="text-lg font-bold">{formatPrice(product.price)}</span>
+            {product.originalPrice > product.price && <span className="text-sm text-muted-foreground line-through">{formatPrice(product.originalPrice)}</span>}
+          </div>
+          <button onClick={onAddToCart} className="mt-4 w-full rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90" aria-label={`Add ${product.name} to cart`}>
+            Quick add — {formatPrice(product.price)}
+          </button>
+        </div>
+      </div>
+    </motion.article>
   )
 }
 
-export function ProductSection({ products }: ProductSectionProps) {
-  const [activeCategory, setActiveCategory] = useState("All Products")
-  const [selectedSizes, setSelectedSizes] = useState<Record<string, Size>>({})
+export function ProductSection() {
+  const [activeFilter, setActiveFilter] = useState<(typeof scentFilters)[number]>("All")
   const { addItem, openCart } = useCart()
-
+  const [products, setProducts] = useState<Product[]>(staticProducts)
+  const [loading, setLoading] = useState(true)
   const sectionRef = useRef(null)
 
-  const categories = useMemo(
-    () => ["All Products", ...Array.from(new Set(products.map((p) => p.category)))],
-    [products]
-  )
+  useEffect(() => {
+    let mounted = true
+    async function fetchProducts() {
+      try {
+        const res = await fetch("/api/products")
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const data = await res.json()
+        if (mounted && Array.isArray(data) && data.length > 0) setProducts(data)
+        if (mounted && Array.isArray(data) && data.length === 0) setProducts(staticProducts)
+      } catch (err) {
+        console.error("ProductSection: fetch error", err)
+        if (mounted) setProducts(staticProducts)
+      } finally {
+        if (mounted) setLoading(false)
+      }
+    }
+    fetchProducts()
+    return () => { mounted = false }
+  }, [])
 
-  const filtered =
-    activeCategory === "All Products"
-      ? products
-      : products.filter((p) => p.category === activeCategory)
+  const filtered = useMemo(() => products.filter((p) => matchesFilter(p, activeFilter)), [products, activeFilter])
 
-  const handleAddToCart = (productId: string) => {
-    const product = products.find((p) => p.id === productId)
-    if (!product) return
-    const size = selectedSizes[productId] ?? "M"
-    addItem({
-      id: String(product.id),
-      slug: product.slug,
-      name: product.title,
-      price: product.price,
-      size,
-      color: product.color,
-      colorHex: product.colorHex,
-      emoji: product.emoji,
-      image: product.image,
-    })
-    toast.success(`${product.title} (${size}) added!`, { icon: product.emoji })
-    setSelectedSizes((prev) => {
-      const next = { ...prev }
-      delete next[productId]
-      return next
-    })
+  const handleAddToCart = (product: Product) => {
+    addItem({ id: String(product.id), slug: product.slug, name: product.name, price: product.price, size: "One Size", color: product.color, colorHex: product.colorHex, emoji: product.emoji, image: product.image })
+    toast.success(`${product.name} added`, { icon: product.emoji })
     openCart()
   }
 
   return (
-    <section id="shop" className="py-24 px-4" ref={sectionRef}>
-      <div className="max-w-[1400px] mx-auto">
-
-        {/* Section header */}
-        <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
-          <div className="flex items-center gap-5">
-            <div className="text-muted-foreground">
-              <KamonCircle />
-            </div>
-            <div>
-              <p className="text-[10px] font-mono tracking-[0.3em] text-muted-foreground uppercase mb-1">
-                02 — Collection
-              </p>
-              <h2 className="font-display font-extrabold tracking-tight leading-none" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
-                The{" "}
-                <span className="gradient-text">Collection</span>
-              </h2>
-            </div>
+    <section id="shop" className="bg-[#F6F0E7] px-4 py-18 md:py-22" ref={sectionRef}>
+      <div className="mx-auto max-w-[1400px]">
+        <div className="mb-12 grid gap-6 lg:grid-cols-[1fr_0.42fr] lg:items-end">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Shop thoughtful scents</p>
+            <h2 className="mt-3 font-serif text-[clamp(3.2rem,8vw,7rem)] font-semibold leading-[0.82] tracking-[-0.05em]">Find a candle for the moment.</h2>
           </div>
-
-          <p className="text-muted-foreground text-sm max-w-xs leading-relaxed hidden md:block">
-            Every design hand-drawn. Every tee garment-dyed. No compromises.
-          </p>
+          <p className="text-sm leading-7 text-muted-foreground">Choose by mood, room, or occasion — from cozy host gifts to quiet evenings at home.</p>
         </div>
-
-        {/* Filter bar with animated pill */}
-        <div className="flex flex-wrap gap-2 mb-12">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              data-cursor="grow"
-              className="relative px-5 py-2 rounded-full text-sm font-medium transition-colors duration-200"
-              style={{ color: activeCategory === cat ? "var(--primary-foreground)" : "var(--muted-foreground)" }}
-            >
-              {activeCategory === cat && (
-                <motion.span
-                  layoutId="filter-pill"
-                  className="absolute inset-0 bg-primary rounded-full"
-                  transition={{ type: "spring", stiffness: 400, damping: 35 }}
-                />
-              )}
-              <span className="relative z-10">{cat}</span>
-            </button>
+        <div className="mb-10 flex flex-wrap gap-2" aria-label="Filter scents">
+          {scentFilters.map((filter) => (
+            <button key={filter} onClick={() => setActiveFilter(filter)} className={`rounded-full border px-4 py-2 text-sm font-medium transition ${activeFilter === filter ? "border-primary bg-primary text-primary-foreground" : "border-border bg-[#FFF8EF]/70 text-muted-foreground hover:border-foreground/30 hover:text-foreground"}`}>{filter}</button>
           ))}
         </div>
-
-        {/* Product grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
-          layout
-        >
-          <AnimatePresence mode="popLayout">
-            {filtered.map((product, index) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                index={index}
-                selectedSize={selectedSizes[product.id]}
-                onSizeSelect={(size) =>
-                  setSelectedSizes((prev) => ({ ...prev, [product.id]: size }))
-                }
-                onAddToCart={() => handleAddToCart(product.id)}
-              />
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <MagneticButton>
-            <Link
-              href="/products"
-              data-cursor="grow"
-              className="inline-flex items-center gap-3 px-8 py-4 border border-border rounded-xl text-sm font-semibold tracking-wider text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-all duration-300"
-            >
-              View All Products
-              <span className="text-base">↗</span>
-            </Link>
-          </MagneticButton>
+        {loading ? (
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {Array.from({ length: 4 }).map((_, i) => <div key={i} className="h-[520px] animate-pulse rounded-[1.75rem] bg-[#FFF8EF]/70" />)}
+          </div>
+        ) : filtered.length > 0 ? (
+          <motion.div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4" layout>
+            <AnimatePresence mode="popLayout">
+              {filtered.map((product, index) => <ProductCard key={product.slug} product={product} index={index} onAddToCart={() => handleAddToCart(product)} />)}
+            </AnimatePresence>
+          </motion.div>
+        ) : (
+          <div className="rounded-3xl border border-border bg-[#FFF8EF]/70 p-10 text-center text-muted-foreground">No scents match this filter yet.</div>
+        )}
+        <div className="mt-10 text-center">
+          <Link href="/products" className="inline-flex items-center gap-2 rounded-full border border-foreground/15 px-6 py-3 text-sm font-semibold transition hover:border-foreground/35">See every candle <span>↗</span></Link>
         </div>
       </div>
     </section>

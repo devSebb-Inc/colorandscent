@@ -36,9 +36,9 @@ export default function ContactPage() {
     <div className="py-20 px-4">
       <div className="max-w-xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold tracking-tight mb-4">Get In Touch</h1>
+          <h1 className="text-4xl font-serif font-extrabold tracking-tight mb-4">Get In Touch</h1>
           <p className="text-muted-foreground">
-            Questions, feedback, or just want to talk about ramen? We&apos;re here.
+            Questions, feedback, or just want to talk about candles? We&apos;re here.
           </p>
         </div>
 
@@ -74,7 +74,7 @@ export default function ContactPage() {
               type="text"
               value={form.subject}
               onChange={(e) => setForm({ ...form, subject: e.target.value })}
-              placeholder="Order question, size help, or just hi 👋"
+              placeholder="Scent question, order help, or just hi 🕯️"
               required
               className={inputClass}
             />

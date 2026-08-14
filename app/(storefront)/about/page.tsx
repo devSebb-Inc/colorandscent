@@ -11,7 +11,7 @@ export default function AboutPage() {
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-16">
           <span className="text-6xl mb-6 block">🕯️</span>
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+          <h1 className="text-4xl md:text-5xl font-serif font-extrabold tracking-tight mb-4">
             Our Story
           </h1>
           <p className="text-muted-foreground text-xl">
@@ -33,7 +33,7 @@ export default function AboutPage() {
           </p>
 
           <p>
-            We use only premium soy and coconut wax blends, cotton wicks, and phthalate-free fragrance oils. No shortcuts, no synthetic shortcuts. The kind of candle that becomes part of your daily ritual.
+            We use only premium soy wax, cotton wicks, and phthalate-free fragrance oils. No shortcuts, no synthetic fillers. The kind of candle that becomes part of your daily ritual.
           </p>
 
           <p>
@@ -43,9 +43,9 @@ export default function AboutPage() {
 
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6">
           {[
-            { icon: "🌿", label: "Natural Wax", description: "Soy & coconut wax blends" },
+            { icon: "🌿", label: "Natural Soy Wax", description: "Clean-burning, eco-friendly soy wax" },
             { icon: "✨", label: "Premium Scents", description: "Phthalate-free fragrance oils" },
-            { icon: "🇺🇸", label: "Hand-Poured", description: "Crafted in the USA" },
+            { icon: "🇺🇸", label: "Hand-Poured", description: "Crafted in small batches in the USA" },
           ].map((item) => (
             <div key={item.label} className="bg-card rounded-2xl p-6 border border-border text-center">
               <span className="text-4xl block mb-3">{item.icon}</span>

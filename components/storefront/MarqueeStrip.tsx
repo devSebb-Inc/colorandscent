@@ -1,20 +1,20 @@
 export function MarqueeStrip() {
   const topItems = [
-    "— RAMEN CULTURE",
-    "— KAWAII CATS",
-    "— SAMURAI SPIRIT",
-    "— DRAGON ENERGY",
-    "— UKIYO-E ART",
-    "— SAKURA VIBES",
-    "— HAND DRAWN",
-    "— DTG PRINTED",
+    "— SOY WAX",
+    "— COTTON WICK",
+    "— HAND-POURED",
+    "— VEGAN",
+    "— ECO-FRIENDLY",
+    "— USA MADE",
+    "— PHTHALATE-FREE",
+    "— PREMIUM SCENTS",
   ]
 
-  const bottomItems = ["文化", "侍", "竜", "猫", "麺", "桜", "浮世絵", ""]
+  const bottomItems = ["SOY", "WAX", "COTTON", "WICK", "VEGAN", "ECO", "USA", "LUXE"]
 
   return (
     <div className="border-y border-border/50 overflow-hidden select-none bg-background">
-      {/* Top strip — cream text, forward */}
+      {/* Top strip */}
       <div className="py-3 flex overflow-hidden border-b border-border/30">
         <div className="animate-marquee whitespace-nowrap flex shrink-0">
           {[...Array(3)].map((_, i) => (
@@ -32,7 +32,7 @@ export function MarqueeStrip() {
         </div>
       </div>
 
-      {/* Bottom strip — gold Japanese text, reverse */}
+      {/* Bottom strip */}
       <div className="py-2.5 flex overflow-hidden">
         <div
           className="whitespace-nowrap flex shrink-0"
@@ -43,7 +43,7 @@ export function MarqueeStrip() {
               {bottomItems.map((item, j) => (
                 <span
                   key={j}
-                  className="font-jp text-sm text-accent/50 mx-8 tracking-widest"
+                  className="text-sm text-accent/50 mx-8 tracking-widest font-bold"
                 >
                   {item}
                 </span>
