@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
+import { updateSession } from "@/lib/supabase/middleware"
 
-export function proxy(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl
 
-  // Protect all /admin routes except the login page
+  // Protect all /admin routes except the login page.
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
     const session = req.cookies.get("admin_session")?.value
 
@@ -14,9 +15,11 @@ export function proxy(req: NextRequest) {
     }
   }
 
-  return NextResponse.next()
+  return updateSession(req)
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+  ],
 }
