@@ -4,11 +4,11 @@ import { type NextRequest, NextResponse } from "next/server"
 function getSupabaseMiddlewareEnv() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseKey =
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseKey) {
-    throw new Error("Missing Supabase middleware environment variables")
+    return null
   }
 
   return { supabaseUrl, supabaseKey }
@@ -21,7 +21,12 @@ export async function updateSession(request: NextRequest) {
     },
   })
 
-  const { supabaseUrl, supabaseKey } = getSupabaseMiddlewareEnv()
+  const supabaseEnv = getSupabaseMiddlewareEnv()
+  if (!supabaseEnv) {
+    return supabaseResponse
+  }
+
+  const { supabaseUrl, supabaseKey } = supabaseEnv
 
   const supabase = createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
