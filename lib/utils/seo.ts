@@ -3,7 +3,7 @@ import { db } from "@/lib/db"
 import { seoSettings } from "@/lib/db/schema"
 import { eq } from "drizzle-orm"
 
-const SITE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://colorandscent.com"
+const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://colorandscent.com"
 const SITE_NAME = "COLOR & SCENT"
 
 /** Fetch SEO override for a given page path from the database. */

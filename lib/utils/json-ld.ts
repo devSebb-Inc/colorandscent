@@ -1,4 +1,4 @@
-const SITE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://colorandscent.com"
+const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://colorandscent.com"
 
 export function organizationJsonLd() {
   return {

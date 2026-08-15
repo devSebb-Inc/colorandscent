@@ -46,7 +46,7 @@ const headingFontVariables = [
   suranna.variable,
 ].join(' ')
 
-const SITE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://colorandscent.com"
+const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://colorandscent.com"
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
