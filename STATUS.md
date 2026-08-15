@@ -10,7 +10,7 @@ _Updated: 2026-08-09_
 - ✅ Storefront pages render
 - ✅ Product detail pages no longer 404 because static fallback product data was added
 - ✅ Supabase project exists and products have been seeded
-- ⏳ Real Supabase DB password is still needed for a working database connection
+- ✅ Supabase pooler database connection verified locally
 - ⏳ Stripe publishable and secret keys are still not configured
 - ⏳ Product image set is still incomplete
 - ⏳ Admin credentials are still not set
