@@ -21,4 +21,4 @@ node_modules/
 # Local scripts and design assets (not for deployment)
 scripts/
 designs/
-data/
+/data/

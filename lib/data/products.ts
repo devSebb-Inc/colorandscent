@@ -1,0 +1,296 @@
+export type ScentFamily = "Amber / Gourmand" | "Woody / Smoky" | "Floral / Soft" | "Fresh / Citrus" | "Clean / Linen" | "Gift Set"
+export type ScentStrength = "Soft" | "Medium" | "Bold" | "Mixed"
+
+export interface Product {
+  id: number
+  name: string
+  subtitle: string
+  price: number
+  originalPrice: number
+  badge: string
+  badgeColor: string
+  category: string
+  tags: string[]
+  color: string
+  colorHex: string
+  emoji: string
+  description: string
+  image: string
+  slug: string
+  galleryImages?: string[]
+  scentFamily: ScentFamily
+  topNotes: string[]
+  heartNotes: string[]
+  baseNotes: string[]
+  scentScene: string
+  roomFit: string[]
+  strength: ScentStrength
+  season: string[]
+}
+
+export const products: Product[] = [
+  {
+    id: 1,
+    slug: "amber-glow",
+    name: "Amber Glow",
+    subtitle: "BERGAMOT · AMBER · SANDALWOOD",
+    price: 24.99,
+    originalPrice: 34.99,
+    badge: "WARM",
+    badgeColor: "bg-[var(--cs-wax-cream)] text-[var(--cs-candlewick-black)]",
+    category: "Jar Candles",
+    tags: ["#soy-wax", "#amber", "#warm", "#evening"],
+    color: "Warm Amber",
+    colorHex: "#B98235",
+    emoji: "✨",
+    description: "A warm amber mood for the room you settle into at dusk. Citrus peel opens the flame, then vanilla, amber, and sandalwood soften the edges.",
+    image: "https://images-api.printify.com/mockup/6a726221fd55886efa076fe1/105857/104173/amber-glow.jpg?camera_label=front",
+    galleryImages: [
+      "https://images-api.printify.com/mockup/6a726221fd55886efa076fe1/105857/104175/amber-glow.jpg?camera_label=open",
+      "https://images-api.printify.com/mockup/6a726221fd55886efa076fe1/105857/104177/amber-glow.jpg?camera_label=context-1",
+      "https://images-api.printify.com/mockup/6a726221fd55886efa076fe1/105857/104179/amber-glow.jpg?camera_label=context-2",
+      "https://images-api.printify.com/mockup/6a726221fd55886efa076fe1/105857/104181/amber-glow.jpg?camera_label=context-3",
+    ],
+    scentFamily: "Amber / Gourmand",
+    topNotes: ["bergamot", "orange peel"],
+    heartNotes: ["warm amber", "vanilla"],
+    baseNotes: ["sandalwood", "soft musk"],
+    scentScene: "warm spice, suede chair, the last orange light on the wall",
+    roomFit: ["living room", "bedroom", "evening wind-down"],
+    strength: "Medium",
+    season: ["fall", "winter", "evening"],
+  },
+  {
+    id: 2,
+    slug: "after-hours",
+    name: "After Hours",
+    subtitle: "BLACK PEPPER · LEATHER · CEDARWOOD",
+    price: 29.99,
+    originalPrice: 39.99,
+    badge: "WOODY",
+    badgeColor: "bg-[var(--cs-candlewick-black)] text-[var(--cs-warm-milk)]",
+    category: "Premium Candles",
+    tags: ["#soy-wax", "#woody", "#smoky", "#premium"],
+    color: "Charcoal",
+    colorHex: "#2C2C2C",
+    emoji: "🌙",
+    description: "A low-lit scent with the structure of a tailored jacket: pepper, saffron, leather, labdanum, cedar, and a trace of smoke.",
+    image: "https://images-api.printify.com/mockup/6a72622411b5f89622037080/105857/104173/after-hours.jpg?camera_label=front",
+    galleryImages: [
+      "https://images-api.printify.com/mockup/6a72622411b5f89622037080/105857/104175/after-hours.jpg?camera_label=open",
+      "https://images-api.printify.com/mockup/6a72622411b5f89622037080/105857/104177/after-hours.jpg?camera_label=context-1",
+      "https://images-api.printify.com/mockup/6a72622411b5f89622037080/105857/104179/after-hours.jpg?camera_label=context-2",
+      "https://images-api.printify.com/mockup/6a72622411b5f89622037080/105857/104181/after-hours.jpg?camera_label=context-3",
+    ],
+    scentFamily: "Woody / Smoky",
+    topNotes: ["black pepper", "saffron"],
+    heartNotes: ["leather", "labdanum"],
+    baseNotes: ["cedarwood", "smoke"],
+    scentScene: "cedar smoke, leather chair, lamps low after midnight",
+    roomFit: ["study", "lounge", "date night"],
+    strength: "Bold",
+    season: ["fall", "winter", "late night"],
+  },
+  {
+    id: 3,
+    slug: "midnight-bloom",
+    name: "Midnight Bloom",
+    subtitle: "BLACK ROSE · OUD · DARK AMBER",
+    price: 24.99,
+    originalPrice: 34.99,
+    badge: "FLORAL",
+    badgeColor: "bg-[#B58A8B] text-white",
+    category: "Jar Candles",
+    tags: ["#soy-wax", "#floral", "#dark", "#evening"],
+    color: "Deep Purple",
+    colorHex: "#6B3FA0",
+    emoji: "🌹",
+    description: "A midnight garden rendered in dark petals, plum skin, violet, oud, patchouli, and amber warmth.",
+    image: "https://images-api.printify.com/mockup/6a726227ac872ebabe028d21/147774/111775/midnight-bloom.jpg?camera_label=front",
+    scentFamily: "Floral / Soft",
+    topNotes: ["black rose", "plum"],
+    heartNotes: ["oud", "violet"],
+    baseNotes: ["patchouli", "dark amber"],
+    scentScene: "a midnight garden, dark rose, rain on warm stone",
+    roomFit: ["bedroom", "bath", "evening ritual"],
+    strength: "Bold",
+    season: ["fall", "winter", "night"],
+  },
+  {
+    id: 4,
+    slug: "golden-hour",
+    name: "Golden Hour",
+    subtitle: "HONEY · TONKA · VANILLA BEAN",
+    price: 24.99,
+    originalPrice: 34.99,
+    badge: "GLOWING",
+    badgeColor: "bg-[#D4A84B] text-[var(--cs-candlewick-black)]",
+    category: "Jar Candles",
+    tags: ["#soy-wax", "#sweet", "#warm", "#gifting"],
+    color: "Golden",
+    colorHex: "#D4A84B",
+    emoji: "🌅",
+    description: "Honeyed and gentle, built for the hour when lamps come on and the room turns soft around the edges.",
+    image: "https://images-api.printify.com/mockup/6a72622b74473a69e400c99a/74407/19310/golden-hour.jpg?camera_label=front",
+    galleryImages: [
+      "https://images-api.printify.com/mockup/6a72622b74473a69e400c99a/74407/19477/golden-hour.jpg?camera_label=open",
+      "https://images-api.printify.com/mockup/6a72622b74473a69e400c99a/74407/19330/golden-hour.jpg?camera_label=context-1",
+      "https://images-api.printify.com/mockup/6a72622b74473a69e400c99a/74407/19441/golden-hour.jpg?camera_label=context-2",
+      "https://images-api.printify.com/mockup/6a72622b74473a69e400c99a/74407/19476/golden-hour.jpg?camera_label=context-3",
+    ],
+    scentFamily: "Amber / Gourmand",
+    topNotes: ["honey", "orange light"],
+    heartNotes: ["tonka", "warm milk"],
+    baseNotes: ["amber", "vanilla bean"],
+    scentScene: "the hour when the lamps come on and everything turns gold",
+    roomFit: ["kitchen", "living room", "gifting"],
+    strength: "Medium",
+    season: ["spring", "fall", "golden hour"],
+  },
+  {
+    id: 5,
+    slug: "calm-collected",
+    name: "Calm & Collected",
+    subtitle: "BERGAMOT · CHAMOMILE · CLEAN COTTON",
+    price: 34.99,
+    originalPrice: 44.99,
+    badge: "SOFT",
+    badgeColor: "bg-[#B7C6C9] text-[var(--cs-candlewick-black)]",
+    category: "Large Candles",
+    tags: ["#soy-wax", "#clean", "#calm", "#linen"],
+    color: "Lavender",
+    colorHex: "#9B8EC4",
+    emoji: "🧘",
+    description: "Clean cotton and chamomile over pale woods: a quiet reset for bedrooms, baths, and workdays that need softer light.",
+    image: "https://images-api.printify.com/mockup/6a72623011b5f89622037095/76262/44713/calm-collected.jpg?camera_label=front",
+    galleryImages: [
+      "https://images-api.printify.com/mockup/6a72623011b5f89622037095/76262/44716/calm-collected.jpg?camera_label=right",
+      "https://images-api.printify.com/mockup/6a72623011b5f89622037095/76262/44719/calm-collected.jpg?camera_label=left",
+      "https://images-api.printify.com/mockup/6a72623011b5f89622037095/76262/44722/calm-collected.jpg?camera_label=context-1",
+      "https://images-api.printify.com/mockup/6a72623011b5f89622037095/76262/44725/calm-collected.jpg?camera_label=context-2",
+    ],
+    scentFamily: "Clean / Linen",
+    topNotes: ["bergamot", "lavender leaf"],
+    heartNotes: ["chamomile", "clean cotton"],
+    baseNotes: ["pale woods", "soft musk"],
+    scentScene: "fresh sheets, green tea, a quiet Sunday window",
+    roomFit: ["bedroom", "bath", "workday reset"],
+    strength: "Soft",
+    season: ["spring", "summer", "morning"],
+  },
+  {
+    id: 6,
+    slug: "soft-life",
+    name: "Soft Life",
+    subtitle: "COCONUT WATER · WHITE FLOWER · TONKA",
+    price: 27.99,
+    originalPrice: 37.99,
+    badge: "CREAMY",
+    badgeColor: "bg-[var(--cs-wax-cream)] text-[var(--cs-candlewick-black)]",
+    category: "Frosted Glass",
+    tags: ["#soy-wax", "#creamy", "#soft", "#gift-safe"],
+    color: "Cream",
+    colorHex: "#FFF5D8",
+    emoji: "🥥",
+    description: "A soft-focus scent: coconut water, vanilla, creamy sandalwood, white flower, tonka, and warm musk.",
+    image: "https://images-api.printify.com/mockup/6a726233fd55886efa07700b/114648/108614/soft-life.jpg?camera_label=front",
+    galleryImages: [
+      "https://images-api.printify.com/mockup/6a726233fd55886efa07700b/114648/108615/soft-life.jpg?camera_label=left",
+      "https://images-api.printify.com/mockup/6a726233fd55886efa07700b/114648/108616/soft-life.jpg?camera_label=right",
+      "https://images-api.printify.com/mockup/6a726233fd55886efa07700b/114648/108617/soft-life.jpg?camera_label=back",
+      "https://images-api.printify.com/mockup/6a726233fd55886efa07700b/114648/108618/soft-life.jpg?camera_label=bottom",
+      "https://images-api.printify.com/mockup/6a726233fd55886efa07700b/114648/108622/soft-life.jpg?camera_label=close-up",
+      "https://images-api.printify.com/mockup/6a726233fd55886efa07700b/114648/108619/soft-life.jpg?camera_label=context-1",
+      "https://images-api.printify.com/mockup/6a726233fd55886efa07700b/114648/108620/soft-life.jpg?camera_label=context-2",
+      "https://images-api.printify.com/mockup/6a726233fd55886efa07700b/114648/108621/soft-life.jpg?camera_label=context-3",
+    ],
+    scentFamily: "Floral / Soft",
+    topNotes: ["coconut water", "vanilla"],
+    heartNotes: ["creamy sandalwood", "white flower"],
+    baseNotes: ["tonka", "warm musk"],
+    scentScene: "pale wood, steamed milk, a book left open",
+    roomFit: ["bedroom", "self-care", "gift-safe"],
+    strength: "Soft",
+    season: ["spring", "summer", "slow morning"],
+  },
+  {
+    id: 7,
+    slug: "fresh-start",
+    name: "Fresh Start",
+    subtitle: "SEA BREEZE · CUCUMBER · DRIFTWOOD",
+    price: 19.99,
+    originalPrice: 24.99,
+    badge: "FRESH",
+    badgeColor: "bg-[#B7C6C9] text-[var(--cs-candlewick-black)]",
+    category: "Tin Candles",
+    tags: ["#soy-wax", "#fresh", "#citrus", "#travel-size"],
+    color: "Sage Green",
+    colorHex: "#7BA05B",
+    emoji: "🌊",
+    description: "Open-window freshness with sea breeze, lemon peel, cucumber, driftwood, and a mineral musk finish.",
+    image: "https://images-api.printify.com/mockup/6a726237cdd350d4e704cfc9/103124/100291/fresh-start.jpg?camera_label=front",
+    galleryImages: [
+      "https://images-api.printify.com/mockup/6a726237cdd350d4e704cfc9/103124/100321/fresh-start.jpg?camera_label=left",
+      "https://images-api.printify.com/mockup/6a726237cdd350d4e704cfc9/103124/100351/fresh-start.jpg?camera_label=right",
+      "https://images-api.printify.com/mockup/6a726237cdd350d4e704cfc9/103124/100381/fresh-start.jpg?camera_label=open",
+      "https://images-api.printify.com/mockup/6a726237cdd350d4e704cfc9/103124/100471/fresh-start.jpg?camera_label=all-colors",
+      "https://images-api.printify.com/mockup/6a726237cdd350d4e704cfc9/103124/101404/fresh-start.jpg?camera_label=hand-context",
+    ],
+    scentFamily: "Fresh / Citrus",
+    topNotes: ["sea breeze", "lemon peel"],
+    heartNotes: ["salt air", "cucumber"],
+    baseNotes: ["driftwood", "mineral musk"],
+    scentScene: "open windows, clean salt air, sun on cotton curtains",
+    roomFit: ["kitchen", "bathroom", "morning reset"],
+    strength: "Medium",
+    season: ["spring", "summer", "morning"],
+  },
+  {
+    id: 8,
+    slug: "essentials-collection",
+    name: "Essentials Collection",
+    subtitle: "FOUR SCENT MOODS · DISCOVERY SET",
+    price: 54.99,
+    originalPrice: 69.99,
+    badge: "STARTER SET",
+    badgeColor: "bg-[var(--cs-soft-clay)] text-white",
+    category: "Gift Sets",
+    tags: ["#soy-wax", "#gift-set", "#collection", "#discovery"],
+    color: "Warm Gold",
+    colorHex: "#C5A55A",
+    emoji: "🎁",
+    description: "Four color moods for the rooms you use most: a discovery path for gifting, first orders, or scent layering at home.",
+    image: "https://images-api.printify.com/mockup/6a72623a2b267329480dcf75/397004/131061/essentials-collection.jpg?camera_label=front",
+    scentFamily: "Gift Set",
+    topNotes: ["four scent moods"],
+    heartNotes: ["warm", "fresh", "soft", "woody"],
+    baseNotes: ["room-by-room discovery"],
+    scentScene: "four color moods for the rooms you use most",
+    roomFit: ["gifting", "discovery", "first order"],
+    strength: "Mixed",
+    season: ["all season", "housewarming", "holiday"],
+  },
+]
+
+export const categories = [
+  "All Products",
+  "Jar Candles",
+  "Premium Candles",
+  "Large Candles",
+  "Frosted Glass",
+  "Tin Candles",
+  "Gift Sets",
+]
+
+export const scentFilters = ["All", "Warm & Cozy", "Fresh & Clean", "Floral & Soft", "Woody & Smoky", "Gifts"] as const
+
+export const announcements = [
+  "Free shipping on orders over $75",
+  "Eight scent moods built around color, notes, and room feel",
+  "Secure checkout",
+  "Candle care included with every order",
+]
+
+export const FREE_SHIPPING_THRESHOLD = 75
+export const SIZES = ["One Size"] as const
+export type Size = typeof SIZES[number]
